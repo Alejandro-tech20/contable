@@ -3,7 +3,6 @@ import 'package:contable/resources/ExpDateForMonth.dart';
 import 'package:contable/resources/ListDatailExpen.dart';
 import 'package:contable/resources/SnapValue.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'ExpenseGraph.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -42,16 +41,24 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
               if (data.hasData) {
                 CarrierSnapValue total = CarrierSnapValue(data);
-                return Column(
-                  children: <Widget>[
-                    ExpBodyForMonth(
-                      total: total.listElemet,
-                    ),
-                    Container(
-                      height: 140.0,
-                      child: GraphWidget(data: total.grahpperday),
-                    )
-                  ],
+                return Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      ExpBodyForMonth(
+                        total: total.listElemet,
+                      ),
+                      Container(
+                        height: 140.0,
+                        child: GraphWidget(data: total.grahpperday),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      ListDetailExpen(
+                        total: total.listMia,
+                      ),
+                    ],
+                  ),
                 );
               } else
                 return CircularProgressIndicator();
@@ -68,11 +75,6 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
           //       width: MediaQuery.of(context).size.width - 10,
           //       child: _graph()),
           // ),
-          SizedBox(
-            height: 8,
-          ),
-          ListDetailExpen(),
-          // _list(),
         ],
       ),
     );
@@ -146,85 +148,6 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
           _pageItem("Noviembre", 10),
           _pageItem("Diciembre", 11),
         ],
-      ),
-    );
-  }
-
-  // Widget _graph() {
-  //   return Container(
-  //     height: 140.0,
-  //     child: GraphWidget,
-  //   );
-  // }
-
-  Widget _list() {
-    return Expanded(
-      child: ListView.separated(
-        itemCount: 15,
-        itemBuilder: (BuildContext context, int index) =>
-            _item(FontAwesomeIcons.shoppingCart, "Shopping", 14, 145.12),
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            height: .05,
-            thickness: .1,
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _item(IconData icon, String name, int percent, double value) {
-    return Container(
-      height: 80,
-      margin: EdgeInsets.symmetric(horizontal: 1),
-      child: Card(
-        borderOnForeground: true,
-        color: Color.fromRGBO(7, 7, 7, .65),
-        elevation: 4,
-        child: ListTile(
-          dense: true,
-          contentPadding: EdgeInsets.only(
-            right: 18,
-            left: 18,
-          ),
-          leading: Icon(
-            icon,
-            size: 22.0,
-            color: Colors.white.withOpacity(.5),
-          ),
-          title: Text(
-            name,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-              color: Colors.white.withOpacity(.7),
-            ),
-          ),
-          subtitle: Text(
-            "$percent% of expenses",
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Colors.blue.withOpacity(.7),
-            ),
-          ),
-          trailing: Container(
-            decoration: BoxDecoration(
-              color: Colors.blueAccent.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "\$$value",
-                style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

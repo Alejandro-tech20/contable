@@ -1,3 +1,4 @@
+import 'package:contable/UI/AddExpenses.dart';
 import 'package:flutter/material.dart';
 import 'UI/Expenses.dart';
 import 'UI/Index.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
               title: 'Hola',
             ),
         RouteName.expenses: (context) => Expenses(),
-        // RouteName.expenses: (context) => ExpBody(),
+        // RouteName.expenses: (BuildContext context) => ExpBody(),
+        RouteName.addExpenses: (BuildContext context) => AddExpenses(),
       },
     );
   }

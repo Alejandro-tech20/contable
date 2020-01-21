@@ -1,22 +1,28 @@
+import 'package:contable/resources/BottomIcon.dart';
 import 'package:contable/resources/SnapValue.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ListDetailExpen extends StatelessWidget {
-  final List<SnapValue> total;
-  final int itenCountExpen, percent = 10; // Hacer Dynamic
+  final Map<String, int> total;
+  final int percent = 10; // Hacer Dynamic
   final IconData icon = FontAwesomeIcons.shoppingCart; //Hacer Dynamic
   final String type = 'Compras';
   final double value = 130.0;
 
-  ListDetailExpen({Key key, this.total, this.itenCountExpen}) : super(key: key);
+  ListDetailExpen({
+    Key key,
+    this.total,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-        itemCount: itenCountExpen,
-        itemBuilder: (BuildContext context, int index) =>
-            item(icon, type, percent, value),
+        itemCount: total.length,
+        itemBuilder: (BuildContext context, int index) => item(
+          total.keys.elementAt(index),
+          total.values.elementAt(index),
+        ),
         separatorBuilder: (BuildContext context, int index) => Divider(
           height: .05,
           thickness: .1,
@@ -25,7 +31,7 @@ class ListDetailExpen extends StatelessWidget {
     );
   }
 
-  Widget item(IconData icon, String type, int percent, double value){
+  Widget item(String type, int value) {
     return Container(
       height: 80,
       margin: EdgeInsets.symmetric(
@@ -42,7 +48,7 @@ class ListDetailExpen extends StatelessWidget {
             left: 18,
           ),
           leading: Icon(
-            icon, 
+            AutomacticIcons.listIcons[type],
             size: 22.0,
             color: Colors.white.withOpacity(.5),
           ),
@@ -82,6 +88,4 @@ class ListDetailExpen extends StatelessWidget {
       ),
     );
   }
-
-
 }

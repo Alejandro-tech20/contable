@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contable/resources/CustomClipper.dart';
 import 'package:contable/resources/CustomIcons.dart';
 import 'package:contable/resources/FooterCliper.dart';

@@ -1,4 +1,6 @@
+import 'package:contable/UI/AddExpenses.dart';
 import 'package:contable/resources/BottomIcon.dart';
+import 'package:contable/resources/RouteName.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -45,7 +47,10 @@ class HomeExp extends StatelessWidget {
           FontAwesomeIcons.plus,
           color: Colors.black.withOpacity(.20),
         ),
-        onPressed: () {},
+        onPressed: () {
+          // Navigator.of(context).pushNamed(RouteName.addExpenses);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddExpenses()));
+        },
       ),
       body: ExpBody(),
     );

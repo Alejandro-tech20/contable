@@ -1,12 +1,21 @@
 import 'package:contable/UI/AddExpenses.dart';
-import 'package:contable/resources/BottomIcon.dart';
-import 'package:contable/resources/RouteName.dart';
+import 'package:contable/resources/ExpBodyResouces.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'ExpBody.dart';
 
-class Expenses extends StatelessWidget {
+class Expenses extends StatefulWidget {
+  @override
+  _ExpensesState createState() => _ExpensesState();
+}
+
+class _ExpensesState extends State<Expenses> {
+  int pageIndex = 1;
+  Map<int, Widget> listPage = {
+    0: BodyAddExpenses(),
+    1: ExpBodyResources(),
+  };
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,45 +23,48 @@ class Expenses extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeExp(),
-    );
-  }
-}
-
-class HomeExp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        notchMargin: 8.0,
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            BottomIcon(icon: FontAwesomeIcons.history),
-            BottomIcon(icon: FontAwesomeIcons.chartPie),
-            SizedBox(
-              width: 55.0,
+      home: Scaffold(
+        bottomNavigationBar: CurvedNavigationBar(
+          color: Color.fromRGBO(7, 7, 7, .6),
+          backgroundColor: Color.fromRGBO(7, 7, 7, .6),
+          buttonBackgroundColor: Colors.transparent,
+          // height: 55,
+          shadow: 5.0,
+          animationDuration: Duration(
+            milliseconds: 300,
+          ),
+          index: 0,
+          items: [
+            CurvedNavigationItem(
+              icon: Icon(Icons.add, size: 30,), text: Text('Add'),
             ),
-            BottomIcon(icon: FontAwesomeIcons.wallet),
-            BottomIcon(icon: FontAwesomeIcons.tools),
+            CurvedNavigationItem(
+              icon: Icon(Icons.list, size: 30,), text: Text('List'),
+            ),
+            // Icon(
+            //   FontAwesomeIcons.plus,
+            //   size: 15,
+            //   color: Colors.white,
+            // ),
+            // Icon(
+            //   FontAwesomeIcons.chartBar,
+            //   size: 15,
+            //   color: Colors.white,
+            // ),
+            // Icon(
+            //   FontAwesomeIcons.businessTime,
+            //   size: 15,
+            //   color: Colors.white,
+            // ),
           ],
+          onTap: (index) {
+           setState(() {
+             pageIndex=index;
+           });
+          },
         ),
+        body: listPage[pageIndex],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          FontAwesomeIcons.plus,
-          color: Colors.black.withOpacity(.20),
-        ),
-        onPressed: () {
-          // Navigator.of(context).pushNamed(RouteName.addExpenses);
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddExpenses()));
-        },
-      ),
-      body: ExpBody(),
     );
   }
 }

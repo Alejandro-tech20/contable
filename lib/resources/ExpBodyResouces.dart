@@ -52,7 +52,7 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
                         child: GraphWidget(data: total.grahpperday),
                       ),
                       SizedBox(
-                        height: 8,
+                        height: 8, 
                       ),
                       ListDetailExpen(
                         total: total.listMia,

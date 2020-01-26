@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             ),
         RouteName.expenses: (context) => Expenses(),
         // RouteName.expenses: (BuildContext context) => ExpBody(),
-        RouteName.addExpenses: (BuildContext context) => AddExpenses(),
+        RouteName.addExpenses: (BuildContext context) => BodyAddExpenses(),
       },
     );
   }

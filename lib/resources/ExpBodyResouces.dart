@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:contable/Manager/Observer.dart';
 import 'package:contable/resources/ExpDateForMonth.dart';
 import 'package:contable/resources/ListDatailExpen.dart';
 import 'package:contable/resources/SnapValue.dart';
@@ -36,33 +37,11 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
       child: Column(
         children: <Widget>[
           _selector(),
-          StreamBuilder<QuerySnapshot>(
+          Observer<QuerySnapshot>(
             stream: _streamBDQuery,
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
-              if (data.hasData) {
-                CarrierSnapValue total = CarrierSnapValue(data);
-                return Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      ExpBodyForMonth(
-                        total: total.listElemet,
-                      ),
-                      Container(
-                        height: 140.0,
-                        child: GraphWidget(data: total.grahpperday),
-                      ),
-                      SizedBox(
-                        height: 8, 
-                      ),
-                      ListDetailExpen(
-                        total: total.listMia,
-                      ),
-                    ],
-                  ),
-                );
-              } else
-                return CircularProgressIndicator();
-            },
+            onSuccess:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> data) =>
+                    buildExpanded(data),
           ),
           // Card(
           //   borderOnForeground: true,
@@ -75,6 +54,29 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
           //       width: MediaQuery.of(context).size.width - 10,
           //       child: _graph()),
           // ),
+        ],
+      ),
+    );
+  }
+
+  Expanded buildExpanded(AsyncSnapshot<QuerySnapshot> data) {
+    CarrierSnapValue total = CarrierSnapValue(data);
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          ExpBodyForMonth(
+            total: total.listElemet,
+          ),
+          Container(
+            height: 140.0,
+            child: GraphWidget(data: total.grahpperday),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          ListDetailExpen(
+            total: total.listMia,
+          ),
         ],
       ),
     );

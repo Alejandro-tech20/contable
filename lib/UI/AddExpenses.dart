@@ -18,26 +18,37 @@ class _BodyAddExpensesState extends State<BodyAddExpenses> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          //botones de seleccion de mes, dia, semana.
           Container(
             height: 55,
+            padding: EdgeInsets.only(left: 20, right: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.amber,
+            ),
             width: MediaQuery.of(context).size.width,
-            color: Colors.amber,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: list.map((item) {
-                var itemIdex = list.indexOf(item);
-                return GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      selectec = itemIdex;
-                    });
-                  },
-                  child: _buidIcon(item, selectec == itemIdex),
-                );
-              }).toList(),
+            // color: Colors.transparent,
+            child: Container(
+              width: 150,
+              color: Colors.amber,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: list.map((item) {
+                  var itemIdex = list.indexOf(item);
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectec = itemIdex;
+                      });
+                    },
+                    child: _buidIcon(item, selectec == itemIdex),
+                  );
+                }).toList(),
+              ),
             ),
           ),
           SelectTypeExpense(),
@@ -62,8 +73,10 @@ class _BodyAddExpensesState extends State<BodyAddExpenses> {
   }
 
   Widget _submit() {
-    return Placeholder(
-      fallbackHeight: 40.0,
+    return Expanded(
+      child: Placeholder(
+        fallbackHeight: 40.0,
+      ),
     );
   }
 

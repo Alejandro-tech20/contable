@@ -7,21 +7,34 @@ class Observer<T> extends StatelessWidget {
   final Function onSuccess;
 
   final Function onError;
+  final Function onWaiting;
+  Function get _defaultonWaiting => (context) => Center(
+        child: CircularProgressIndicator(),
+      );
+  Function get _defaultonError => (
+        context,
+        error,
+      ) =>
+          Text(error);
 
-  const Observer({this.onError, this.onSuccess, this.stream});
+  const Observer({this.onError, this.onSuccess, this.stream, this.onWaiting});
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: stream,
-      builder: (BuildContext context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<T> snapshot) {
         if (snapshot.hasError) {
-          return onError(context, snapshot.error);
+          return (onError != null)
+              ? onError(context, snapshot.error)
+              : _defaultonError(context, snapshot.error);
         }
-        snapshot.hasData
-            ? onSuccess(context, snapshot)
-            : Center(
-                child: CircularProgressIndicator(),
-              );
+        if (snapshot.hasData) {
+          return onSuccess(context, snapshot);
+        } else {
+          return (onWaiting != null)
+              ? onWaiting(context)
+              : _defaultonWaiting(context);
+        }
       },
     );
   }

@@ -1,3 +1,4 @@
+
 import 'package:contable/UI/AddExpenses.dart';
 import 'package:flutter/material.dart';
 import 'UI/Expenses.dart';
@@ -6,15 +7,19 @@ import 'resources/RouteName.dart';
 
 void main() => runApp(MyApp());
 
+
 class MyApp extends StatelessWidget {
+  
+ 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       title: 'Cuadrante de Horarios',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: RouteName.home,
+      initialRoute: RouteName.expenses,
       routes: {
         RouteName.home: (context) => Home(),
         RouteName.index: (context) => Index(

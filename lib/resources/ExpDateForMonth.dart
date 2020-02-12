@@ -9,8 +9,8 @@ class ExpBodyForMonth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       borderOnForeground: true,
-      color: Color.fromRGBO(7, 7, 7, .65),
-      elevation: 8,
+      color: Colors.white10,
+      elevation: 1, 
       margin: EdgeInsets.symmetric(
         vertical: 10,
       ),
@@ -31,7 +31,7 @@ class ExpBodyForMonth extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 40.0,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         Text(

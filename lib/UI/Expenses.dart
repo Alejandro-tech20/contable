@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contable/UI/AddExpenses.dart';
 import 'package:contable/resources/ExpBodyResouces.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class Expenses extends StatefulWidget {
@@ -14,10 +14,28 @@ class _ExpensesState extends State<Expenses> {
   int pageIndex = 1;
   Map<int, Widget> listPage = {
     0: BodyAddExpenses(),
-    1: ExpBodyResources(),
+    1: ExpBodyResources(), 
   };
+  
+  Stream<QuerySnapshot> getByTypeAll2 = Firestore.instance
+      .collection('expenses')
+      .where("type", isEqualTo: "bus")
+      .snapshots();
+   Map<dynamic,dynamic> lista;   
+
   @override
   Widget build(BuildContext context) {
+    // getByTypeAll2.listen((data){
+    //   data.documentChanges.forEach((chage){
+    //     print('${chage.document.data}');
+    //   });
+    // });
+    //  lista = Map.fromIterable(data.documents.toList() ,key: (data)=>data['type'], value: (data)=>data['value']);
+    //  print('${lista.length}');
+    // },
+    // onDone: (){
+    //   print('done');
+    // });
     return MaterialApp(
       title: 'Gastos',
       theme: ThemeData(

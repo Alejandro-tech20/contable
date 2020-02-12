@@ -24,7 +24,7 @@ class CarrierSnapValue {
   List<SnapValue> listElemet;
   Map<String, int> listMia;
   var ff=0;
-  int i=0;
+  int i=0; 
 
   CarrierSnapValue(this.carrier) {
     listElemet = carrier.data.documents

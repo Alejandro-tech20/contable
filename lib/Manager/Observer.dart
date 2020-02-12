@@ -39,3 +39,6 @@ class Observer<T> extends StatelessWidget {
     );
   }
 }
+// class Conextion{
+//   final 
+// }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contable/Manager/Observer.dart';
 import 'package:contable/resources/ExpDateForMonth.dart';
@@ -16,6 +18,8 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
   PageController _controller;
   int currentPage = DateTime.now().month - 1;
   Stream<QuerySnapshot> _streamBDQuery;
+  int i = 0;
+  // final CollectionReference _bd= Firestore.instance.collection('expenses');
 
   @override
   void initState() {
@@ -29,6 +33,15 @@ class _ExpBodyResourcesState extends State<ExpBodyResources> {
       initialPage: currentPage,
       viewportFraction: 0.4,
     );
+    // print(_bd.document(_bd.document().documentID).setData(data));
+
+    // _bd.listen((data) {
+    //   print(data);
+    // }, onDone: () {
+    //   print('terminado');
+    // }, onError: (error) {
+    //   print(error);
+    // });
   }
 
   @override
